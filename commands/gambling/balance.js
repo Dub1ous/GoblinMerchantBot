@@ -20,7 +20,7 @@ module.exports = {
         }
         const embed1 = new EmbedBuilder()
             .setTitle('Balance')
-            .addFields({name: `${tag.balance}`, value: ' '})
+            .addFields({name: `Gold: ${tag.balance}`, value: ' '})
 
         await interaction.reply({embeds: [embed1]});
     }
