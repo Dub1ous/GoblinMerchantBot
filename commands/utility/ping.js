@@ -1,4 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, EmbedBuilder} = require('@discordjs/builders');
+const {PermissionFlagsBits} = require('discord.js')
 const embed1 = new EmbedBuilder()
     .setTitle(":ping_pong: Pong!")
     .addFields(
