@@ -5,10 +5,10 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	dialect: 'sqlite',
 	logging: false,
 	// SQLite only
-	storage: 'database.sqlite',
+	storage: 'userData.sqlite',
 });
 
-const playerData = sequelize.define('tags', {
+const userData = sequelize.define('tags', {
 	userId: {
 		type: Sequelize.INTEGER,
 		unique: true,
@@ -18,4 +18,4 @@ const playerData = sequelize.define('tags', {
 	balance: Sequelize.INTEGER,
 });
 
-module.exports = playerData
+module.exports = {userData}

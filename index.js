@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./secretconfig.json');
-const playerData = require('./wallet-structure.js')
+const {userData} = require('./wallet-structure.js')
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -31,7 +31,7 @@ for (const folder of commandFolders) {
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
 client.once(Events.ClientReady, readyClient => {
-    playerData.sync();
+    userData.sync();
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
