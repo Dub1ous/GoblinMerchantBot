@@ -1,27 +1,27 @@
 const { SlashCommandBuilder, EmbedBuilder} = require('@discordjs/builders');
 const {PermissionFlagsBits} = require('discord.js')
-const {userData} = require('../../wallet-structure.js');
-const { Database } = require('sqlite3');
-const Sequelize = require('sequelize');
+const fs = require('fs')
+const {createTag, createFile, readFile} = require('../../createData.js')
+const path = require('path')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('balance')
         .setDescription('Displays your balance or the balance of another player'),
     async execute(interaction) {
-        user = interaction.user.id
-        const tag = await userData.findByPk(user);
-        if (tag === null){
-            await userData.create({
-                userId: interaction.user.id,
-                username: interaction.user.username,
-                balance: 0,
-            });
-        const tag = await userData.findByPk(user);
+        const user = interaction.user
+        let tag = {}
+        const filePath = path.join(__dirname, `../../userData/${user.id}.json`)
+        console.log(filePath)
+        const fileExists = fs.existsSync(filePath)
+        console.log(fileExists)
+        if (!fileExists){
+            const tag = createTag(user)
+            createFile(user, tag)
         }
+        tag = readFile(user)
         const embed1 = new EmbedBuilder()
             .setTitle('Balance')
             .addFields({name: `Gold: ${tag.balance}`, value: ' '})
-
         await interaction.reply({embeds: [embed1]});
     }
 }

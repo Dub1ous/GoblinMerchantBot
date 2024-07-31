@@ -5,8 +5,8 @@ const fs = require('fs')
 const path = require('path')
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('add')
-        .setDescription('Adds Balance to a Player')
+        .setName('remove')
+        .setDescription('Removes balance from a player')
         .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
 
         .addIntegerOption(option =>
@@ -17,7 +17,7 @@ module.exports = {
         .addUserOption(option =>
             option.setName('user')
                 .setRequired(true)
-                .setDescription('User to add gold to')),
+                .setDescription('User to take gold from')),
                 
     async execute(interaction) {
         user = interaction.options.getUser('user')
@@ -32,10 +32,10 @@ module.exports = {
             createFile(user, tag)
         }
         tag = readFile(user)
-        tag.balance += amount
+        tag.balance -= amount
         createFile(user, tag)
         const embed1 = new EmbedBuilder()
-            .setTitle(`Added ${amount} gold to ${user.username}`)
+            .setTitle(`Remove ${amount} gold from ${user.username}`)
         await interaction.reply({embeds: [embed1]});
 },
 }
